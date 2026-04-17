@@ -12,13 +12,15 @@ interface Props {
   editCourseId?: string;
   initialTitle?: string;
   initialDescription?: string;
+  initialWelcomeMessage?: string;
 }
 
-export default function CourseFormModal({ onCreated, onClose, editCourseId, initialTitle = "", initialDescription = "" }: Props) {
+export default function CourseFormModal({ onCreated, onClose, editCourseId, initialTitle = "", initialDescription = "", initialWelcomeMessage = "" }: Props) {
   const { firebaseUser } = useAuth();
   const isEdit = !!editCourseId;
   const [title, setTitle] = useState(isEdit ? initialTitle : "");
   const [description, setDescription] = useState(isEdit ? initialDescription : "");
+  const [welcomeMessage, setWelcomeMessage] = useState(isEdit ? initialWelcomeMessage : "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,10 +31,10 @@ export default function CourseFormModal({ onCreated, onClose, editCourseId, init
     setError(null);
     try {
       if (isEdit) {
-        await updateCourse(editCourseId, { title, description });
+        await updateCourse(editCourseId, { title, description, welcomeMessage: welcomeMessage || undefined });
         toast.success("Propedéutico actualizado");
       } else {
-        await createCourse({ title, description }, firebaseUser.uid);
+        await createCourse({ title, description, welcomeMessage: welcomeMessage || undefined }, firebaseUser.uid);
         toast.success("Propedéutico creado correctamente");
       }
       onCreated();
@@ -46,7 +48,7 @@ export default function CourseFormModal({ onCreated, onClose, editCourseId, init
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{isEdit ? "Editar propedéutico" : "Nuevo propedéutico"}</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl leading-none">✕</button>
@@ -73,6 +75,19 @@ export default function CourseFormModal({ onCreated, onClose, editCourseId, init
               rows={3}
               className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-texo-amarillo focus:border-transparent resize-none"
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Mensaje de bienvenida <span className="font-normal text-gray-400">(opcional)</span>
+            </label>
+            <textarea
+              placeholder="Este mensaje se mostrará al participante antes de comenzar el propedéutico..."
+              value={welcomeMessage}
+              onChange={(e) => setWelcomeMessage(e.target.value)}
+              rows={5}
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-texo-amarillo focus:border-transparent resize-none"
+            />
+            <p className="mt-1 text-xs text-gray-400">Se muestra en la pantalla de inicio del propedéutico, antes de acceder a los capítulos.</p>
           </div>
           {error && (
             <p className="text-sm text-texo-rojo bg-texo-rojo/10 px-3 py-2 rounded-lg">{error}</p>

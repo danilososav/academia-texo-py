@@ -23,6 +23,7 @@ export interface Course {
   createdAt: Timestamp;
   published: boolean;
   courseNumber?: number; // asignado automáticamente al crear — undefined en cursos previos
+  welcomeMessage?: string; // Mensaje de bienvenida/introducción
   deleted?: boolean;
   deletedAt?: Timestamp;
   deletedBy?: string;

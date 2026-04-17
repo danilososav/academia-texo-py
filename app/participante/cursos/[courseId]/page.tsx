@@ -82,12 +82,11 @@ export default function CourseViewPage() {
 
       await enrollParticipant(firebaseUser.uid, courseId);
 
-      // Mostrar intro solo si no tiene progreso y no la vio antes
-      const totalCompleted = Object.values(progressMap).filter(Boolean).length;
+      // Mostrar intro si no la vio antes (independientemente del progreso)
       const seenKey = `intro-seen-${courseId}`;
       const alreadySeen =
         typeof window !== "undefined" && localStorage.getItem(seenKey) === "1";
-      setShowIntro(totalCompleted === 0 && !alreadySeen);
+      setShowIntro(!alreadySeen);
 
       setCourse(courseData);
       setChaptersData(chaptersWithResources);
@@ -255,6 +254,18 @@ export default function CourseViewPage() {
           <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">
             {course.description}
           </p>
+
+          {/* Mensaje de bienvenida */}
+          {course.welcomeMessage && (
+            <div className="bg-texo-azul/5 dark:bg-white/5 border border-texo-azul/20 dark:border-white/10 rounded-xl p-4 mb-6">
+              <p className="text-xs font-semibold text-texo-azul dark:text-texo-amarillo uppercase tracking-wide mb-2">
+                Mensaje de bienvenida
+              </p>
+              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
+                {course.welcomeMessage}
+              </p>
+            </div>
+          )}
 
           {/* Stats */}
           <div className="flex gap-6 mb-8">

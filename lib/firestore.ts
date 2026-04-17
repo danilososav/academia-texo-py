@@ -134,7 +134,7 @@ export async function getUserRole(uid: string): Promise<UserRole | null> {
 // ─── Cursos ───────────────────────────────────────────────────────────────────
 
 export async function createCourse(
-  data: Pick<Course, "title" | "description" | "coverImageUrl">,
+  data: Pick<Course, "title" | "description" | "coverImageUrl" | "welcomeMessage">,
   artesanoId: string
 ): Promise<Course> {
   // Contar los cursos existentes del artesano para asignar el número correlativo
@@ -143,7 +143,7 @@ export async function createCourse(
   );
   const courseNumber = existingSnap.size + 1;
 
-  const payload = {
+  const payload: Record<string, unknown> = {
     title: data.title,
     description: data.description,
     coverImageUrl: data.coverImageUrl ?? null,
@@ -152,6 +152,7 @@ export async function createCourse(
     published: false,
     courseNumber,
   };
+  if (data.welcomeMessage) payload.welcomeMessage = data.welcomeMessage;
 
   const ref = await addDoc(collection(db, "courses"), payload);
   silentAudit({
@@ -221,7 +222,7 @@ export async function getAllCourses(): Promise<Course[]> {
 
 export async function updateCourse(
   courseId: string,
-  data: Partial<Pick<Course, "title" | "description" | "coverImageUrl">>
+  data: Partial<Pick<Course, "title" | "description" | "coverImageUrl" | "welcomeMessage">>
 ): Promise<void> {
   await updateDoc(doc(db, "courses", courseId), data);
   silentAudit({
