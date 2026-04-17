@@ -82,11 +82,7 @@ export default function CourseViewPage() {
 
       await enrollParticipant(firebaseUser.uid, courseId);
 
-      // Mostrar intro si no la vio antes (independientemente del progreso)
-      const seenKey = `intro-seen-${courseId}`;
-      const alreadySeen =
-        typeof window !== "undefined" && localStorage.getItem(seenKey) === "1";
-      setShowIntro(!alreadySeen);
+      setShowIntro(true);
 
       setCourse(courseData);
       setChaptersData(chaptersWithResources);
@@ -208,9 +204,6 @@ export default function CourseViewPage() {
   }
 
   function handleStartCourse() {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(`intro-seen-${courseId}`, "1");
-    }
     setShowIntro(false);
   }
 
