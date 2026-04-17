@@ -44,7 +44,7 @@ function formatDate(ts: Timestamp | null | undefined): string {
 const RESOURCE_TYPE_OPTIONS = [
   { value: "", label: "Todos los tipos" },
   { value: "course", label: "Propedéutico" },
-  { value: "chapter", label: "Capítulo" },
+  { value: "chapter", label: "Cápsula" },
   { value: "resource", label: "Recurso" },
   { value: "video", label: "Video" },
   { value: "presentation", label: "Presentación" },

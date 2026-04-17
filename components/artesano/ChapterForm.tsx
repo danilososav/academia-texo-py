@@ -39,7 +39,7 @@ export default function ChapterForm({
         </div>
         <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título del capítulo</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título de la cápsula</label>
             <input
               type="text"
               placeholder="Ej: Introducción al diseño tipográfico"
@@ -52,7 +52,7 @@ export default function ChapterForm({
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descripción <span className="font-normal text-gray-400">(opcional)</span></label>
             <textarea
-              placeholder="Descripción breve del capítulo..."
+              placeholder="Descripción breve de la cápsula..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={2}

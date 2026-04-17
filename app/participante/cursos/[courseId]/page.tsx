@@ -161,7 +161,7 @@ export default function CourseViewPage() {
     if (nextChapterIdx < chaptersData.length) {
       const nextChapter = chaptersData[nextChapterIdx];
       return {
-        label: "Siguiente capítulo →",
+        label: "Siguiente cápsula →",
         onClick: () => {
           setActiveChapterIdx(nextChapterIdx);
           setActiveResourceId(nextChapter.resources[0]?.id ?? null);
@@ -274,7 +274,7 @@ export default function CourseViewPage() {
                 {chaptersData.length}
               </p>
               <p className="text-xs text-gray-400 mt-0.5">
-                {chaptersData.length === 1 ? "capítulo" : "capítulos"}
+                {chaptersData.length === 1 ? "cápsula" : "cápsulas"}
               </p>
             </div>
             <div className="text-center">
@@ -358,7 +358,7 @@ export default function CourseViewPage() {
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="md:hidden fixed bottom-4 right-4 z-50 bg-texo-azul text-white px-4 py-2 rounded-full shadow-lg text-sm font-medium"
         >
-          {sidebarOpen ? "✕ Cerrar" : "☰ Capítulos"}
+          {sidebarOpen ? "✕ Cerrar" : "☰ Cápsulas"}
         </button>
 
         {/* ── Sidebar mejorado ──────────────────────────────────────────── */}
@@ -368,7 +368,7 @@ export default function CourseViewPage() {
           } md:flex flex-col w-full md:w-72 border-r border-gray-200 dark:border-gray-700 overflow-y-auto shrink-0 fixed md:static inset-0 md:inset-auto bg-[#f8f9fa] dark:bg-texo-dark z-40`}
         >
           <p className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400" style={{ fontSize: "13px", fontWeight: 500 }}>
-            Índice
+            Cápsulas
           </p>
           <nav className="flex flex-col gap-1 p-2 pb-4">
             {chaptersData.map(({ chapter, resources }, idx) => {
@@ -456,7 +456,7 @@ export default function CourseViewPage() {
         {/* ── Contenido principal ──────────────────────────────────────── */}
         <main className="flex-1 p-6 overflow-y-auto">
           {!activeChapterData ? (
-            <p className="text-gray-500">Seleccioná un capítulo para comenzar.</p>
+            <p className="text-gray-500">Seleccioná una cápsula para comenzar.</p>
           ) : activeResource ? (
             <div>
               <button
@@ -489,7 +489,7 @@ export default function CourseViewPage() {
               )}
               {activeChapterData.resources.length === 0 ? (
                 <p className="text-gray-400 text-sm mt-4">
-                  Este capítulo no tiene recursos todavía.
+                  Esta cápsula no tiene recursos todavía.
                 </p>
               ) : (
                 <ul className="flex flex-col gap-2 mt-4">

@@ -143,9 +143,9 @@ export default function ChapterResourcesPage() {
       <div className="mt-4 mb-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 flex items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white pb-2 border-b-[3px] border-texo-amarillo inline-block">
-            {chapterTitle || "Capítulo"}
+            {chapterTitle || "Cápsula"}
           </h1>
-          <p className="text-sm text-gray-400 mt-2">Recursos del capítulo</p>
+          <p className="text-sm text-gray-400 mt-2">Recursos de la cápsula</p>
         </div>
         <Button onClick={() => setShowCreateForm(true)} variant="primary">
           + Agregar recurso

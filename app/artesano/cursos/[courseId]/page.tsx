@@ -118,7 +118,7 @@ export default function CourseDetailPage() {
   async function handleCreateChapter(title: string, description: string) {
     try {
       await createChapter(courseId, { title, description });
-      toast.success("Capítulo creado");
+      toast.success("Cápsula creada");
     } catch {
       toast.error("Ocurrió un error. Intentá de nuevo.");
     }
@@ -130,7 +130,7 @@ export default function CourseDetailPage() {
     if (!editingChapter) return;
     try {
       await updateChapter(courseId, editingChapter.id, { title, description });
-      toast.success("Capítulo actualizado");
+      toast.success("Cápsula actualizada");
     } catch {
       toast.error("Ocurrió un error. Intentá de nuevo.");
     }
@@ -228,17 +228,17 @@ export default function CourseDetailPage() {
       {/* Chapters */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Capítulos
+          Cápsulas
         </h2>
         <Button onClick={() => setShowChapterForm(true)} variant="primary" size="sm">
-          + Agregar capítulo
+          + Agregar cápsula
         </Button>
       </div>
 
       {chapters.length === 0 ? (
         <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl">
           <p className="text-gray-400 text-sm">
-            No hay capítulos todavía. ¡Agregá el primero!
+            No hay cápsulas todavía. ¡Agregá la primera!
           </p>
         </div>
       ) : (
@@ -307,14 +307,14 @@ export default function CourseDetailPage() {
 
       {showChapterForm && (
         <ChapterForm
-          title="Nuevo capítulo"
+          title="Nueva cápsula"
           onSubmit={handleCreateChapter}
           onCancel={() => setShowChapterForm(false)}
         />
       )}
       {editingChapter && (
         <ChapterForm
-          title="Editar capítulo"
+          title="Editar cápsula"
           initial={editingChapter}
           onSubmit={handleEditChapter}
           onCancel={() => setEditingChapter(null)}
