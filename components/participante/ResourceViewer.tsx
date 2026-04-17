@@ -695,7 +695,7 @@ function TrackedPageViewer({
 
 // ── PdfResource ───────────────────────────────────────────────────────────────
 
-const MIN_PDF_TIME = 20; // segundos por página
+const MIN_PDF_TIME = 0; // sin timer — navegación libre
 
 function PdfResource({
   content,
@@ -790,16 +790,16 @@ function PdfResource({
 
   function renderBottom({ current, total, allReady }: PageStatus) {
     if (total === 0) {
-      return <ActionButton ready={false} completing={completing} onComplete={handleComplete} />;
+      return <ActionButton ready={true} completing={completing} onComplete={handleComplete} />;
     }
     const pct = allReady ? 100 : Math.round((current - 1) / total * 100);
     const msg = allReady
       ? "PDF completado ✓"
-      : `Página ${current} de ${total} — avanzá página por página`;
+      : `Página ${current} de ${total}`;
     return (
       <div>
         <EngagementBar pct={Math.min(100, pct)} message={msg} ready={allReady} />
-        <ActionButton ready={ready} completing={completing} onComplete={handleComplete} />
+        <ActionButton ready={true} completing={completing} onComplete={handleComplete} />
       </div>
     );
   }
