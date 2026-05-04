@@ -235,8 +235,15 @@ export default function CourseViewPage() {
               className="w-full h-48 object-cover rounded-2xl mb-6"
             />
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src="/texo-logo.jpg" alt="TEXO" className="w-full h-48 object-cover rounded-2xl mb-6" />
+            <div className="w-full h-48 rounded-2xl mb-6 bg-gradient-to-br from-texo-azul to-texo-verde flex items-center justify-center overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/texo-logo.jpg"
+                alt="TEXO"
+                className="h-24 w-auto object-contain"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+            </div>
           )}
 
           {/* Contenido */}
