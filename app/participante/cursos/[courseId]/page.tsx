@@ -235,13 +235,9 @@ export default function CourseViewPage() {
               className="w-full h-48 object-cover rounded-2xl mb-6"
             />
           ) : (
-            <div className="w-full h-48 rounded-2xl mb-6 bg-gradient-to-br from-texo-azul to-texo-verde flex items-center justify-center overflow-hidden">
+            <div className="w-full flex justify-center mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/texo.png"
-                alt="TEXO"
-                className="h-32 w-auto object-contain"
-              />
+              <img src="/texo.png" alt="TEXO" className="h-24 w-auto object-contain" />
             </div>
           )}
 
