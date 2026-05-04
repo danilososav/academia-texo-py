@@ -235,7 +235,7 @@ export default function CourseViewPage() {
               className="w-full h-48 object-cover rounded-2xl mb-6"
             />
           ) : (
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            // eslint-disable-next-line @next/next/no-img-element
             <img src="/texo-logo.jpg" alt="TEXO" className="w-full h-48 object-cover rounded-2xl mb-6" />
           )}
 
