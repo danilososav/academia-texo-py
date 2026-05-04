@@ -25,43 +25,9 @@ export async function GET(req: NextRequest) {
       throw new Error("No se pudo obtener token de acceso.");
     }
 
-    const rangeHeader = req.headers.get("range");
+    const driveUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&supportsAllDrives=true&access_token=${token}`;
 
-    const driveUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&supportsAllDrives=true`;
-
-    const fetchHeaders: Record<string, string> = {
-      Authorization: `Bearer ${token}`,
-    };
-    if (rangeHeader) {
-      fetchHeaders["Range"] = rangeHeader;
-    }
-
-    const driveRes = await fetch(driveUrl, { headers: fetchHeaders });
-
-    if (!driveRes.ok && driveRes.status !== 206) {
-      console.error("[drive/stream] Drive respondió:", driveRes.status, await driveRes.text());
-      return new NextResponse("Error al obtener el video de Drive.", { status: driveRes.status });
-    }
-
-    // Armar headers de respuesta
-    const responseHeaders = new Headers();
-    responseHeaders.set(
-      "Content-Type",
-      driveRes.headers.get("content-type") ?? "video/mp4"
-    );
-    responseHeaders.set("Accept-Ranges", "bytes");
-    responseHeaders.set("Cache-Control", "public, max-age=3600");
-
-    const contentLength = driveRes.headers.get("content-length");
-    if (contentLength) responseHeaders.set("Content-Length", contentLength);
-
-    const contentRange = driveRes.headers.get("content-range");
-    if (contentRange) responseHeaders.set("Content-Range", contentRange);
-
-    return new NextResponse(driveRes.body, {
-      status: driveRes.status, // 200 o 206 (Partial Content)
-      headers: responseHeaders,
-    });
+    return NextResponse.redirect(driveUrl);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Error desconocido";
     console.error("[drive/stream] Error:", message);

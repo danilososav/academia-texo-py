@@ -1,0 +1,40 @@
+name: Firestore Backup
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Cada día a las 3 AM UTC
+  workflow_dispatch:       # Permite ejecutar manualmente desde GitHub
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create service account file
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > service-account-firebase.json
+
+      - name: Run backup
+        run: npm run backup
+
+      - name: Upload backup as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firestore-backup-${{ github.run_number }}
+          path: backups/
+          retention-days: 90
+
+      - name: Remove service account file
+        if: always()
+        run: rm -f service-account-firebase.json
