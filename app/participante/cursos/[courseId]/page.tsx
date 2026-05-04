@@ -238,10 +238,9 @@ export default function CourseViewPage() {
             <div className="w-full h-48 rounded-2xl mb-6 bg-gradient-to-br from-texo-azul to-texo-verde flex items-center justify-center overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/texo-logo.jpg"
+                src="/texo.png"
                 alt="TEXO"
                 className="h-32 w-auto object-contain"
-                style={{ mixBlendMode: "multiply" }}
               />
             </div>
           )}
