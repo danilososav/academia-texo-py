@@ -283,26 +283,15 @@ function VideoResource({
   const seekingRef      = useRef(false);
   const lastTimeRef     = useRef(0);
 
-  const [streamSrc,   setStreamSrc]   = useState<string | null>(null);
+  const streamSrc = fileId ? `/api/drive/stream?fileId=${fileId}` : null;
+
   const [watchedPct,  setWatchedPct]  = useState(0);
-  const [useFallback, setUseFallback] = useState(!fileId);
+  const [useFallback, setUseFallback] = useState(!streamSrc);
   const [buffering,   setBuffering]   = useState(false);
   const [completing,  setCompleting]  = useState(false);
 
-  useEffect(() => {
-    if (!fileId) return;
-    fetch(`/api/drive/video-url?fileId=${fileId}`)
-      .then((r) => r.json())
-      .then((data: { url?: string }) => {
-        if (data.url) setStreamSrc(data.url);
-        else setUseFallback(true);
-      })
-      .catch(() => setUseFallback(true));
-  }, [fileId]);
-
   const REQUIRED = 100;
   const ready = useFallback || watchedPct >= REQUIRED;
-  const loading = !useFallback && !streamSrc;
 
   const saveWatched = useCallback(() => {
     if (!userId || !courseId) return;
@@ -362,14 +351,6 @@ function VideoResource({
     }
     await onComplete();
     setCompleting(false);
-  }
-
-  if (loading) {
-    return (
-      <div className="w-full flex items-center justify-center rounded-xl bg-black" style={{ height: "500px" }}>
-        <div className="w-10 h-10 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-      </div>
-    );
   }
 
   // Iframe fallback (Drive embed — sin tracking)
