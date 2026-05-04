@@ -245,10 +245,6 @@ export default function CourseViewPage() {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
             {course.title}
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">
-            {course.description}
-          </p>
-
           {/* Mensaje de bienvenida */}
           {course.welcomeMessage && (
             <div className="bg-texo-azul/5 dark:bg-white/5 border border-texo-azul/20 dark:border-white/10 rounded-xl p-4 mb-6">
