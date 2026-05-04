@@ -237,7 +237,7 @@ export default function CourseViewPage() {
           ) : (
             <div className="w-full flex justify-center mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/texo.png" alt="TEXO" className="h-24 w-auto object-contain" />
+              <img src="/texo.png" alt="TEXO" className="h-40 w-auto object-contain" />
             </div>
           )}
 
