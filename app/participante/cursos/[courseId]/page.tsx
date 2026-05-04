@@ -240,8 +240,8 @@ export default function CourseViewPage() {
               <img
                 src="/texo-logo.jpg"
                 alt="TEXO"
-                className="h-24 w-auto object-contain"
-                style={{ filter: "brightness(0) invert(1)" }}
+                className="h-32 w-auto object-contain"
+                style={{ mixBlendMode: "multiply" }}
               />
             </div>
           )}
